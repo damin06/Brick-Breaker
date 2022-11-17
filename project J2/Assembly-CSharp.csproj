@@ -47,12 +47,16 @@
      <Compile Include="Assets\scriptes\stageData.cs" />
      <Compile Include="Assets\scriptes\blcok.cs" />
      <Compile Include="Assets\scriptes\test.cs" />
+     <Compile Include="Assets\scriptes\AdMobManager.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+     <None Include="Assets\GooglePlayGames\com.google.play.games\Proguard\games.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+     <None Include="Assets\GoogleMobileAds\link.xml" />
+     <None Include="Assets\GoogleMobileAds\GoogleMobileAds_version-7.3.1_manifest.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
@@ -335,6 +339,18 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
         <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="GoogleMobileAds.Core">
+        <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Assets\GoogleMobileAds\GoogleMobileAds.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GoogleMobileAds">
+        <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Assets\GoogleMobileAds\GoogleMobileAds.dll</HintPath>
+    </Reference>
+    <Reference Include="GoogleMobileAds.Unity">
+        <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Assets\GoogleMobileAds\GoogleMobileAds.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="GoogleMobileAds.Common">
+        <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Assets\GoogleMobileAds\GoogleMobileAds.Common.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.7f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -797,6 +813,18 @@
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{d7170f71-01aa-f8dc-e9cb-faedc6a2cb73}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="GoogleMobileAds.Editor.csproj">
+      <Project>{d2d00b33-3eda-d5f0-a04f-83fdb45cad24}</Project>
+      <Name>GoogleMobileAds.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Google.Play.Games.Editor.csproj">
+      <Project>{c0695dbf-9709-27d2-eab1-92a074e5b2e0}</Project>
+      <Name>Google.Play.Games.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Google.Play.Games.csproj">
+      <Project>{10e7c3da-656c-bbde-aff3-1301d7b475f1}</Project>
+      <Name>Google.Play.Games</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
