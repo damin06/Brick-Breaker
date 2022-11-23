@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{13959d26-ac7c-2a14-1815-6a77fcb3ae94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{d7170f71-01aa-f8dc-e9cb-faedc6a2cb73}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Play.Games", "Google.Play.Games.csproj", "{10e7c3da-656c-bbde-aff3-1301d7b475f1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMobileAds.Editor", "GoogleMobileAds.Editor.csproj", "{d2d00b33-3eda-d5f0-a04f-83fdb45cad24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{d7170f71-01aa-f8dc-e9cb-faedc6a2cb73}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Play.Games.Editor", "Google.Play.Games.Editor.csproj", "{c0695dbf-9709-27d2-eab1-92a074e5b2e0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMobileAds.Editor", "GoogleMobileAds.Editor.csproj", "{d2d00b33-3eda-d5f0-a04f-83fdb45cad24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,14 +18,14 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{13959d26-ac7c-2a14-1815-6a77fcb3ae94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13959d26-ac7c-2a14-1815-6a77fcb3ae94}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{d7170f71-01aa-f8dc-e9cb-faedc6a2cb73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{d7170f71-01aa-f8dc-e9cb-faedc6a2cb73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10e7c3da-656c-bbde-aff3-1301d7b475f1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{10e7c3da-656c-bbde-aff3-1301d7b475f1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{d2d00b33-3eda-d5f0-a04f-83fdb45cad24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{d2d00b33-3eda-d5f0-a04f-83fdb45cad24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{d7170f71-01aa-f8dc-e9cb-faedc6a2cb73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{d7170f71-01aa-f8dc-e9cb-faedc6a2cb73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{c0695dbf-9709-27d2-eab1-92a074e5b2e0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{c0695dbf-9709-27d2-eab1-92a074e5b2e0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{d2d00b33-3eda-d5f0-a04f-83fdb45cad24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{d2d00b33-3eda-d5f0-a04f-83fdb45cad24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

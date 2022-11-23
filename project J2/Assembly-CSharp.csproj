@@ -36,18 +36,19 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\scriptes\BallDestroy.cs" />
-     <Compile Include="Assets\scriptes\item.cs" />
-     <Compile Include="Assets\scriptes\camera.cs" />
-     <Compile Include="Assets\scriptes\GameManager.cs" />
-     <Compile Include="Assets\scriptes\block_move.cs" />
-     <Compile Include="Assets\scriptes\destroyobject.cs" />
-     <Compile Include="Assets\scriptes\sceenchange.cs" />
-     <Compile Include="Assets\scriptes\scoretXT.cs" />
-     <Compile Include="Assets\scriptes\stageData.cs" />
-     <Compile Include="Assets\scriptes\blcok.cs" />
-     <Compile Include="Assets\scriptes\test.cs" />
-     <Compile Include="Assets\scriptes\AdMobManager.cs" />
+     <Compile Include="Assets\02_scriptes\BallDestroy.cs" />
+     <Compile Include="Assets\02_scriptes\item.cs" />
+     <Compile Include="Assets\02_scriptes\AdMobManager.cs" />
+     <Compile Include="Assets\02_scriptes\camera.cs" />
+     <Compile Include="Assets\02_scriptes\GameManager.cs" />
+     <Compile Include="Assets\02_scriptes\block_move.cs" />
+     <Compile Include="Assets\02_scriptes\destroyobject.cs" />
+     <Compile Include="Assets\02_scriptes\sceenchange.cs" />
+     <Compile Include="Assets\02_scriptes\scoretXT.cs" />
+     <Compile Include="Assets\02_scriptes\stageData.cs" />
+     <Compile Include="Assets\02_scriptes\blcok.cs" />
+     <Compile Include="Assets\02_scriptes\test.cs" />
+     <Compile Include="Assets\02_scriptes\JSON.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\GooglePlayGames\com.google.play.games\Proguard\games.txt" />
@@ -316,6 +317,12 @@
     <Reference Include="UnityEditor.UnityConnectModule">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.7f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
+    <Reference Include="GoogleMobileAds.Core">
+        <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Assets\GoogleMobileAds\GoogleMobileAds.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GoogleMobileAds">
+        <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Assets\GoogleMobileAds\GoogleMobileAds.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Burst.Unsafe">
         <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.Unsafe.dll</HintPath>
     </Reference>
@@ -328,29 +335,23 @@
     <Reference Include="Unity.Burst.Cecil">
         <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Burst.Cecil.Rocks">
-        <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
+    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
+        <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Library\PackageCache\com.unity.visualscripting@1.7.8\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="DOTween">
         <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
-        <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Library\PackageCache\com.unity.visualscripting@1.7.8\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+    <Reference Include="Unity.Burst.Cecil.Rocks">
+        <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Library\PackageCache\com.unity.burst@1.6.6\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-        <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="GoogleMobileAds.Core">
-        <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Assets\GoogleMobileAds\GoogleMobileAds.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="GoogleMobileAds">
-        <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Assets\GoogleMobileAds\GoogleMobileAds.dll</HintPath>
+    <Reference Include="GoogleMobileAds.Common">
+        <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Assets\GoogleMobileAds\GoogleMobileAds.Common.dll</HintPath>
     </Reference>
     <Reference Include="GoogleMobileAds.Unity">
         <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Assets\GoogleMobileAds\GoogleMobileAds.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="GoogleMobileAds.Common">
-        <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Assets\GoogleMobileAds\GoogleMobileAds.Common.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+        <HintPath>C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2\Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.7f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -814,13 +815,13 @@
       <Project>{d7170f71-01aa-f8dc-e9cb-faedc6a2cb73}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
-    <ProjectReference Include="GoogleMobileAds.Editor.csproj">
-      <Project>{d2d00b33-3eda-d5f0-a04f-83fdb45cad24}</Project>
-      <Name>GoogleMobileAds.Editor</Name>
-    </ProjectReference>
     <ProjectReference Include="Google.Play.Games.Editor.csproj">
       <Project>{c0695dbf-9709-27d2-eab1-92a074e5b2e0}</Project>
       <Name>Google.Play.Games.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="GoogleMobileAds.Editor.csproj">
+      <Project>{d2d00b33-3eda-d5f0-a04f-83fdb45cad24}</Project>
+      <Name>GoogleMobileAds.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Google.Play.Games.csproj">
       <Project>{10e7c3da-656c-bbde-aff3-1301d7b475f1}</Project>
