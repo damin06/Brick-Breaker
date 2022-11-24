@@ -20,13 +20,11 @@ public class GameManager : MonoBehaviour
     Vector3 pos9 = new Vector3(5.25f, 5.5f, 0);
 
 
+    [SerializeField] private JSON jSON;
 
+    [Header("UI")]
     [SerializeField] Button quitbutton;
     [SerializeField] GameObject pauspanel;
-    [SerializeField] stageData stageData;
-    [SerializeField] private GameObject wall;
-    // [SerializeField] private GameObject item1;
-    // [SerializeField] private GameObject item2;
     [SerializeField] private Image backgorund;
     [SerializeField] private TextMeshProUGUI scoreTXT;
     [SerializeField] private TextMeshProUGUI gameoverTXT;
@@ -35,6 +33,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI countTXT;
     [SerializeField] private Image blakcfade;
     [SerializeField] private Text PausScoreTXT;
+
+
+
+    [SerializeField] stageData stageData;
+    [SerializeField] private GameObject wall;
+    // [SerializeField] private GameObject item1;
+    // [SerializeField] private GameObject item2;
+
+
 
 
     private bool GameOver = false;
@@ -50,14 +57,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float downtime = 0.24f;
     public int blockcount = 0;
     test Test;
-    Data josn;
+
+
     void Awake()
     {
+        jSON.LoadPlayerDataToJson();
+        Data PlayerData = jSON.playerData;
         Test = GameObject.FindObjectOfType<test>().GetComponent<test>();
         StartCoroutine(spawnwall());
         StartCoroutine(GameCount());
-        Data playData = josn;
-        bestscore = PlayerPrefs.GetInt("bestscore");
+        bestscore = PlayerData.bestscore;
+        //bestscore = PlayerPrefs.GetInt("bestscore");
     }
 
 
@@ -214,9 +224,14 @@ public class GameManager : MonoBehaviour
         {
             bestscore = score;
             PlayerPrefs.SetInt("bestscore", bestscore);
+
+            Data PlayerData = jSON.playerData;
+            PlayerData.bestscore = bestscore;
+
             bestsocteTXT.DOFade(1, 2);
             StartCoroutine(bestscoreText());
         }
+        jSON.SavePlayerDataToJson();
         scoreTXT.text = "score : " + score.ToString();
         scoreTXT.DOFade(1, 2);
         gameoverTXT.DOFade(1, 2);
@@ -290,6 +305,7 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
+        jSON.SavePlayerDataToJson();
         Application.Quit();
     }
     public void home()

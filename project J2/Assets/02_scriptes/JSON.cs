@@ -35,6 +35,7 @@ public class JSON : MonoBehaviour
 [System.Serializable]
 public class Data
 {
-    public string sibal;
-    public int score;
+    public int bestscore;
+    public float sen;
+    public float voluem;
 }
