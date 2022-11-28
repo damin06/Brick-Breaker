@@ -38,6 +38,7 @@
   <ItemGroup>
      <Compile Include="Assets\02_scriptes\BallDestroy.cs" />
      <Compile Include="Assets\02_scriptes\item.cs" />
+     <Compile Include="Assets\02_scriptes\DataManager.cs" />
      <Compile Include="Assets\02_scriptes\AdMobManager.cs" />
      <Compile Include="Assets\02_scriptes\camera.cs" />
      <Compile Include="Assets\02_scriptes\JSON.cs" />
@@ -49,7 +50,6 @@
      <Compile Include="Assets\02_scriptes\stageData.cs" />
      <Compile Include="Assets\02_scriptes\blcok.cs" />
      <Compile Include="Assets\02_scriptes\test.cs" />
-     <Compile Include="Assets\02_scriptes\DataManager.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\GooglePlayGames\com.google.play.games\Proguard\games.txt" />
