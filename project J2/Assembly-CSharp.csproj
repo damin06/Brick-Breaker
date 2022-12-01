@@ -44,13 +44,13 @@
      <Compile Include="Assets\02_scriptes\JSON.cs" />
      <Compile Include="Assets\02_scriptes\GameManager.cs" />
      <Compile Include="Assets\02_scriptes\block_move.cs" />
+     <Compile Include="Assets\02_scriptes\PauseManager.cs" />
      <Compile Include="Assets\02_scriptes\destroyobject.cs" />
      <Compile Include="Assets\02_scriptes\sceenchange.cs" />
      <Compile Include="Assets\02_scriptes\scoretXT.cs" />
      <Compile Include="Assets\02_scriptes\stageData.cs" />
      <Compile Include="Assets\02_scriptes\blcok.cs" />
      <Compile Include="Assets\02_scriptes\test.cs" />
-     <Compile Include="Assets\02_scriptes\PauseManager.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\GooglePlayGames\com.google.play.games\Proguard\games.txt" />

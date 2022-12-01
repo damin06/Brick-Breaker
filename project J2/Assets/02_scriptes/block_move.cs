@@ -41,18 +41,15 @@ public class block_move : MonoBehaviour
     }
     private void LateUpdate()
     {
-        //움직인 제안
+        //움직인 제한
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, stageData.LimitMin.x, stageData.LimitMax.x),
-                                                              Mathf.Clamp(transform.position.y, stageData.LimitMin.y, stageData.LimitMax.y));
+            Mathf.Clamp(transform.position.y, stageData.LimitMin.y, stageData.LimitMax.y));
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("item"))
         {
-            AudioSource.PlayClipAtPoint(itemAudio, new Vector3(0, 0, 0));
-            GameObject ballclone = Instantiate(ballobjectl);
-            ballclone.transform.position = new Vector3(0, 0, 0);
-            gameManager.ballcount++;
+            SpawnBall();
             Destroy(collision.gameObject);
         }
         test ball = collision.gameObject.GetComponent<test>();
@@ -74,4 +71,11 @@ public class block_move : MonoBehaviour
         }
     }
 
+    public void SpawnBall()
+    {
+        AudioSource.PlayClipAtPoint(itemAudio, new Vector3(0, 0, 0));
+        GameObject ballclone = Instantiate(ballobjectl);
+        ballclone.transform.position = new Vector3(0, 0, 0);
+        gameManager.ballcount++;
+    }
 }

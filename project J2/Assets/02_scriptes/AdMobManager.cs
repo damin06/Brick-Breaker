@@ -28,8 +28,8 @@ public class AdMobManager : MonoBehaviour
 
     void Update()
     {
-        FrontAdsBtn.interactable = frontAd.IsLoaded();
-        RewardAdsBtn.interactable = rewardAd.IsLoaded();
+        //FrontAdsBtn.interactable = frontAd.IsLoaded();
+        //RewardAdsBtn.interactable = rewardAd.IsLoaded();
     }
 
     AdRequest GetAdRequest()
@@ -90,10 +90,10 @@ public class AdMobManager : MonoBehaviour
     #region 리워드 광고
     const string rewardTestID = "ca-app-pub-3940256099942544/5224354917";
     const string rewardID = "";
-    RewardedAd rewardAd;
+    public RewardedAd rewardAd;
 
 
-    void LoadRewardAd()
+    public void LoadRewardAd()
     {
         rewardAd = new RewardedAd(isTestMode ? rewardTestID : rewardID);
         rewardAd.LoadAd(GetAdRequest());

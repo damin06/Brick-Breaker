@@ -32,11 +32,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button restartButton;
     [SerializeField] private TextMeshProUGUI countTXT;
     private RectTransform backgroundRext;
+    [SerializeField] private Button continueButton;
+    [SerializeField] private TextMeshProUGUI continueTXT;
+    [SerializeField] private TextMeshProUGUI continueCountTXT;
 
 
 
     [SerializeField] stageData stageData;
     [SerializeField] private GameObject wall;
+    private PauseManager pauseManager;
+    private AdMobManager ad;
+    private block_move bl;
     // [SerializeField] private GameObject item1;
     // [SerializeField] private GameObject item2;
 
@@ -45,6 +51,8 @@ public class GameManager : MonoBehaviour
 
     public bool GameOver = false;
     public bool PauseActive = false;
+    public bool isMove = false;
+    private bool isReStarted = false;
 
 
     public int ballcount = 1;
@@ -54,12 +62,11 @@ public class GameManager : MonoBehaviour
     public int stage = 0;
     private float currentcooltime;
     [SerializeField] private float cooltime = 10;
-    public bool isMove = false;
+
     [SerializeField] private float downtime = 0.24f;
     public int blockcount = 0;
     private float voluemSetting;
     test Test;
-    private PauseManager pauseManager;
 
 
     void Awake()
@@ -71,6 +78,8 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GameCount());
         pauseManager = FindObjectOfType<PauseManager>();
         backgroundRext = backgorund.GetComponent<RectTransform>();
+        ad = FindObjectOfType<AdMobManager>();
+        bl = FindObjectOfType<block_move>();
 
         GameOver = false;
         // if (PausScoreTXT = null)
@@ -240,7 +249,7 @@ public class GameManager : MonoBehaviour
         if (score > bestscore)
         {
             bestscore = score;
-            PlayerPrefs.SetInt("bestscore", bestscore);
+            //PlayerPrefs.SetInt("bestscore", bestscore);
 
             Data PlayerData = jSON.playerData;
             PlayerData.bestscore = bestscore;
@@ -252,10 +261,40 @@ public class GameManager : MonoBehaviour
         scoreTXT.text = "score : " + score.ToString();
         scoreTXT.DOFade(1, 2);
         gameoverTXT.DOFade(1, 2);
-        restartButton.gameObject.SetActive(true);
-        quitbutton.gameObject.SetActive(true);
+
+        isRe();
+        //quitbutton.gameObject.SetActive(true);
         yield break;
     }
+
+    private void isRe()
+    {
+        if (!isReStarted)
+        {
+            StartCoroutine("ContinueGameTXT");
+            return;
+        }
+        else
+        {
+            restartButton.gameObject.SetActive(true);
+            return;
+        }
+    }
+    IEnumerator ContinueGameTXT()
+    {
+        continueButton.gameObject.SetActive(true);
+        continueTXT.DOFade(1, 2);
+        continueCountTXT.DOFade(1, 2);
+        yield return new WaitForSeconds(2);
+        continueCountTXT.text = "2";
+        yield return new WaitForSeconds(1);
+        continueCountTXT.text = "1";
+        yield return new WaitForSeconds(1);
+        continueButton.gameObject.SetActive(false);
+        restartButton.gameObject.SetActive(true);
+        yield break;
+    }
+
     IEnumerator bestscoreText()
     {
         bestsocteTXT.transform.DOScale(1.5f, 0.6f);
@@ -265,6 +304,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(bestscoreText());
 
     }
+
     IEnumerator GameCount()
     {
         countTXT.gameObject.SetActive(true);
@@ -298,6 +338,28 @@ public class GameManager : MonoBehaviour
     {
         jSON.SavePlayerDataToJson();
         Application.Quit();
+    }
+
+    public void ContinueGameButton()
+    {
+        ad.LoadRewardAd();
+        ad.rewardAd.OnUserEarnedReward += (sender, e) =>
+        {
+            StartCoroutine("ContinueGame");
+        };
+    }
+
+    IEnumerator ContinueGame()
+    {
+        GameOver = false;
+        isReStarted = true;
+        backgroundRext.DOAnchorPosY(946, 1);
+        bestsocteTXT.DOFade(0, 1.5f);
+        scoreTXT.DOFade(0, 1.5f);
+        gameoverTXT.DOFade(0, 1.5f);
+        yield return new WaitForSeconds(1.7f);
+        bl.SpawnBall();
+        GameCount();
     }
 
 }
