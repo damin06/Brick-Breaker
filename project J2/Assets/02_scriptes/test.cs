@@ -19,7 +19,7 @@ public class test : MonoBehaviour
 
     void update()
     {
-        if(gameManager.PauseActive)
+        if (gameManager.PauseActive)
         {
             rigidbody.velocity = Vector2.zero;
         }

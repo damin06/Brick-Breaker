@@ -7,12 +7,14 @@ public class block_move : MonoBehaviour
     [SerializeField] private GameObject ballobjectl;
     [SerializeField] stageData stageData;
     [SerializeField] private AudioClip itemAudio;
-    public float moveSpeed = 0.7f;
+    private float moveSpeed;
     private Quaternion basePosition = new(0, 0, 0, 0);
     public float maxBounceAngle = 75f;
     GameManager gameManager;
-    void Start()
+    PauseManager pauseManager;
+    void Awake()
     {
+        pauseManager = GameObject.FindObjectOfType<PauseManager>().GetComponent<PauseManager>();
         gameManager = GameObject.FindObjectOfType<GameManager>().GetComponent<GameManager>();
         Input.gyro.enabled = true;
     }
@@ -20,6 +22,7 @@ public class block_move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        moveSpeed = pauseManager.moveSpeed;
         if (gameManager.PauseActive)
         {
             Move();
@@ -70,8 +73,5 @@ public class block_move : MonoBehaviour
             ball.rigidbody.velocity = rotation * Vector2.up * ball.rigidbody.velocity.magnitude;
         }
     }
-    public void speedbar(float speed)
-    {
-        moveSpeed = speed;
-    }
+
 }

@@ -24,15 +24,14 @@ public class GameManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] Button quitbutton;
-    [SerializeField] GameObject pauspanel;
+    //public GameObject pauspanel;
     [SerializeField] private Image backgorund;
     [SerializeField] private TextMeshProUGUI scoreTXT;
     [SerializeField] private TextMeshProUGUI gameoverTXT;
     [SerializeField] private TextMeshProUGUI bestsocteTXT;
     [SerializeField] private Button restartButton;
     [SerializeField] private TextMeshProUGUI countTXT;
-    [SerializeField] private Image blakcfade;
-    [SerializeField] private Text PausScoreTXT;
+    private RectTransform backgroundRext;
 
 
 
@@ -44,8 +43,10 @@ public class GameManager : MonoBehaviour
 
 
 
-    private bool GameOver = false;
+    public bool GameOver = false;
     public bool PauseActive = false;
+
+
     public int ballcount = 1;
     public int score = 0;
     private int bestscore;
@@ -56,7 +57,9 @@ public class GameManager : MonoBehaviour
     public bool isMove = false;
     [SerializeField] private float downtime = 0.24f;
     public int blockcount = 0;
+    private float voluemSetting;
     test Test;
+    private PauseManager pauseManager;
 
 
     void Awake()
@@ -66,7 +69,17 @@ public class GameManager : MonoBehaviour
         Test = GameObject.FindObjectOfType<test>().GetComponent<test>();
         StartCoroutine(spawnwall());
         StartCoroutine(GameCount());
-        bestscore = PlayerData.bestscore;
+        pauseManager = FindObjectOfType<PauseManager>();
+        backgroundRext = backgorund.GetComponent<RectTransform>();
+
+        GameOver = false;
+        // if (PausScoreTXT = null)
+        // {
+        //     PausScoreTXT = Text.Ga;
+        // }
+
+        //bestscore = PlayerData.bestscore;
+        //voluemSetting = PlayerData.voluem;
         //bestscore = PlayerPrefs.GetInt("bestscore");
     }
 
@@ -212,13 +225,17 @@ public class GameManager : MonoBehaviour
     // }
     IEnumerator endgame()
     {
+        //PauseActive = true;
+        pauseManager.QuitPause();
+        //PauseActive = false;
         Handheld.Vibrate();
         GameOver = true;
-        PauseActive = false;
-        blakcfade.gameObject.SetActive(false);
-        pauspanel.SetActive(false);
-        Time.timeScale = 1;
-        backgorund.transform.DOMove(new Vector3(430, 240, 0), 2);
+
+        //blakcfade.gameObject.SetActive(false);
+        //pauspanel.SetActive(false);
+        //Time.timeScale = 1;
+        //backgorund.transform.DOMove(new Vector3(430, 240, 0), 2);
+        backgroundRext.DOAnchorPosY(0, 2);
         yield return new WaitForSeconds(0.5f);
         if (score > bestscore)
         {
@@ -275,41 +292,12 @@ public class GameManager : MonoBehaviour
     //     yield return new WaitForSeconds(0.5f);
     //     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     // }
-    public void GamePuase()
-    {
-        if (GameOver == false)
-        {
-            if (PauseActive == false)
-            {
-                PausScoreTXT.text = "SCORE : " + score.ToString();
-                PauseActive = true;
-                blakcfade.gameObject.SetActive(true);
-                pauspanel.SetActive(true);
-                Time.timeScale = 0;
-            }
-            else
-            {
-                //StartCoroutine(GameCount());
-                PauseActive = false;
-                blakcfade.gameObject.SetActive(false);
-                pauspanel.SetActive(false);
-                Time.timeScale = 1;
-            }
-        }
 
-    }
-    public void voluem(float voluem)
-    {
-        AudioListener.volume = voluem;
-    }
 
     public void QuitGame()
     {
         jSON.SavePlayerDataToJson();
         Application.Quit();
     }
-    public void home()
-    {
-        SceneManager.LoadScene("home");
-    }
+
 }

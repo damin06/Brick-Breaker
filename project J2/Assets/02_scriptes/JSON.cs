@@ -36,6 +36,4 @@ public class JSON : MonoBehaviour
 public class Data
 {
     public int bestscore;
-    public float sen;
-    public float voluem;
 }
