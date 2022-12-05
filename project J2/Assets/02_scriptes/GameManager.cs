@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         time += Time.deltaTime;
         if (blockcount <= 0)
@@ -105,7 +105,6 @@ public class GameManager : MonoBehaviour
         if (ballcount <= 0)
         {
             StartCoroutine(endgame());
-
             return;
         }
 
@@ -264,7 +263,6 @@ public class GameManager : MonoBehaviour
 
         isRe();
         //quitbutton.gameObject.SetActive(true);
-        yield break;
     }
 
     private void isRe()
@@ -272,12 +270,13 @@ public class GameManager : MonoBehaviour
         if (!isReStarted)
         {
             StartCoroutine("ContinueGameTXT");
-            return;
         }
         else
         {
             restartButton.gameObject.SetActive(true);
-            return;
+            continueButton.gameObject.SetActive(false);
+            restartButton.gameObject.SetActive(true);
+            StopCoroutine("ContinueGameTXT");
         }
     }
     IEnumerator ContinueGameTXT()
@@ -285,14 +284,23 @@ public class GameManager : MonoBehaviour
         continueButton.gameObject.SetActive(true);
         continueTXT.DOFade(1, 2);
         continueCountTXT.DOFade(1, 2);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         continueCountTXT.text = "2";
         yield return new WaitForSeconds(1);
         continueCountTXT.text = "1";
         yield return new WaitForSeconds(1);
+
+        // int a = 5;
+        // for (int i = a; i <= 0; i--)
+        // {
+        //     continueCountTXT.text = i.ToString();
+        //     yield return new WaitForSeconds(1);
+        // }
+
+        //yield return new WaitForSeconds(a);
         continueButton.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(true);
-        yield break;
+        StopCoroutine("ContinueGameTXT");
     }
 
     IEnumerator bestscoreText()
