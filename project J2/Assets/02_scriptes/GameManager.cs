@@ -5,6 +5,8 @@ using DG.Tweening;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using GoogleMobileAds.Api;
+using GoogleMobileAds.Common;
 
 public class GameManager : MonoBehaviour
 {
@@ -43,6 +45,8 @@ public class GameManager : MonoBehaviour
     private PauseManager pauseManager;
     private AdMobManager ad;
     private block_move bl;
+    private RewardedAd rewardedAd;
+
     // [SerializeField] private GameObject item1;
     // [SerializeField] private GameObject item2;
 
@@ -82,6 +86,8 @@ public class GameManager : MonoBehaviour
         bl = FindObjectOfType<block_move>();
 
         GameOver = false;
+
+
         // if (PausScoreTXT = null)
         // {
         //     PausScoreTXT = Text.Ga;
@@ -102,7 +108,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(spawnwall());
             return;
         }
-        if (ballcount <= 0)
+        if (ballcount <= 0 && !GameOver)
         {
             StartCoroutine(endgame());
             return;
@@ -284,7 +290,7 @@ public class GameManager : MonoBehaviour
         continueButton.gameObject.SetActive(true);
         continueTXT.DOFade(1, 2);
         continueCountTXT.DOFade(1, 2);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2.2f);
         continueCountTXT.text = "2";
         yield return new WaitForSeconds(1);
         continueCountTXT.text = "1";
@@ -350,11 +356,15 @@ public class GameManager : MonoBehaviour
 
     public void ContinueGameButton()
     {
-        ad.LoadRewardAd();
-        ad.rewardAd.OnUserEarnedReward += (sender, e) =>
-        {
-            StartCoroutine("ContinueGame");
-        };
+        Debug.Log("렛츠고");
+        // ad.LoadRewardAd();
+        // ad.rewardAd.OnUserEarnedReward += (sender, e) =>
+        // {
+        //     StartCoroutine("ContinueGame");
+        // };
+        this.rewardedAd = new RewardedAd("ca-app-pub-3940256099942544/5224354917");
+        AdRequest request = new AdRequest.Builder().Build();
+        this.rewardedAd.LoadAd(request);
     }
 
     IEnumerator ContinueGame()
