@@ -87,6 +87,19 @@ public class GameManager : MonoBehaviour
 
         GameOver = false;
 
+        var requestConfiguration = new RequestConfiguration
+   .Builder()
+   .SetTestDeviceIds(new List<string>() { "1DF7B7CC05014E8" }) // test Device ID
+   .build();
+
+        MobileAds.SetRequestConfiguration(requestConfiguration);
+
+        rewardedAd = new RewardedAd("ca-app-pub-3940256099942544/5224354917");
+
+        // Create an empty ad request.
+        AdRequest request = new AdRequest.Builder().Build();
+        // Load the rewarded ad with the request.
+        rewardedAd.LoadAd(request);
 
         // if (PausScoreTXT = null)
         // {
@@ -196,6 +209,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(downtime);
         isMove = false;
     }
+
     IEnumerator spawn2()
     {
         List<Vector3> spawnlist = new List<Vector3>() { pos6, pos7, pos8, pos9 };
@@ -362,9 +376,17 @@ public class GameManager : MonoBehaviour
         // {
         //     StartCoroutine("ContinueGame");
         // };
-        this.rewardedAd = new RewardedAd("ca-app-pub-3940256099942544/5224354917");
+        // this.rewardedAd = new RewardedAd("ca-app-pub-3940256099942544/5224354917");
+        // AdRequest request = new AdRequest.Builder().Build();
+        // this.rewardedAd.LoadAd(request);
+        rewardedAd = new RewardedAd("ca-app-pub-3940256099942544/5224354917");
+
+        // Create an empty ad request.
         AdRequest request = new AdRequest.Builder().Build();
-        this.rewardedAd.LoadAd(request);
+        // Load the rewarded ad with the request.
+        rewardedAd.LoadAd(request);
+        rewardedAd.Show();
+        //Time.timeScale = 0;
     }
 
     IEnumerator ContinueGame()

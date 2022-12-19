@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 40
+  controlID: 103
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 41
+  controlID: 104
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -308,9 +308,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 12c4ffff1aceffff64cfffff6ed1ffffb8d2ffff34dcffff4adfffffb0ebfffffaecffff00f1ffff44f2ffff88f3ffffb8f4ffffc4f8ffff34fbffffcc830000428d0000
+      m_SelectedIDs: 2eb7ffff
+      m_LastClickedID: -18642
+      m_ExpandedIDs: 22b8ffff18bcffff1ac0ffff90c3ffff6ac5ffff36c8ffff1acbffff4cccffffd0ceffff7ad2ffff4ed3ffff32d6ffff0ad8ffffded9ffff0edbffffa6dbfffffcdeffff82e2ffff64e4ffff5ce7ffff5eeaffff3aecffff2aefffff78efffff68f1ffff98f2ffffcef6ffffb0f8ffff34fbffff567e0000ea8f00004c900000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -416,21 +416,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/GoogleMobileAds
+    - Assets/01_Scenes
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/GoogleMobileAds
+  - Assets/01_Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\user\Documents\GitHub\Brick-Breaker-re\project J2
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 545f0000
-    m_LastClickedID: 24404
+    m_SelectedIDs: 405f0000
+    m_LastClickedID: 24384
     m_ExpandedIDs: 00000000305f0000325f0000345f0000365f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -511,7 +511,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 752.6}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 155
@@ -832,9 +832,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0, y: 0, z: 0}
+    m_Target: {x: 7.5983725, y: -7.989769, z: -7.7914724}
     speed: 2
-    m_Value: {x: 0, y: 0, z: 0}
+    m_Value: {x: 7.5983725, y: -7.989769, z: -7.7914724}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -885,9 +885,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 10
+    m_Target: 12.151841
     speed: 2
-    m_Value: 10
+    m_Value: 12.151841
   m_Ortho:
     m_Target: 1
     speed: 2

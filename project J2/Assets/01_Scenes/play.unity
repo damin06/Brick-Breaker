@@ -3743,6 +3743,10 @@ PrefabInstance:
       propertyPath: isTestMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3456395827018311446, guid: 18fa55289b029c64f9ab910e1734aeff, type: 3}
+      propertyPath: RewardAdsBtn
+      value: 
+      objectReference: {fileID: 1602523278}
     - target: {fileID: 3456395827018311447, guid: 18fa55289b029c64f9ab910e1734aeff, type: 3}
       propertyPath: m_Name
       value: AdMobManager
