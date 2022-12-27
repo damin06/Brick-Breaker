@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using GoogleMobileAds.Api;
 using GoogleMobileAds.Common;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -73,7 +75,7 @@ public class GameManager : MonoBehaviour
     test Test;
 
 
-    void Awake()
+    private void Awake()
     {
         jSON.LoadPlayerDataToJson();
         Data PlayerData = jSON.playerData;
@@ -87,11 +89,17 @@ public class GameManager : MonoBehaviour
 
         GameOver = false;
 
-        var requestConfiguration = new RequestConfiguration
-   .Builder()
-   .SetTestDeviceIds(new List<string>() { "1DF7B7CC05014E8" }) // test Device ID
-   .build();
 
+
+
+    }
+
+    private void Start()
+    {
+        var requestConfiguration = new RequestConfiguration
+        .Builder()
+        .SetTestDeviceIds(new List<string>() { "1DF7B7CC05014E8" }) // test Device ID
+        .build();
         MobileAds.SetRequestConfiguration(requestConfiguration);
 
         rewardedAd = new RewardedAd("ca-app-pub-3940256099942544/5224354917");
@@ -101,16 +109,19 @@ public class GameManager : MonoBehaviour
         // Load the rewarded ad with the request.
         rewardedAd.LoadAd(request);
 
-        // if (PausScoreTXT = null)
-        // {
-        //     PausScoreTXT = Text.Ga;
-        // }
-
-        //bestscore = PlayerData.bestscore;
-        //voluemSetting = PlayerData.voluem;
-        //bestscore = PlayerPrefs.GetInt("bestscore");
+        // Called when an ad request has successfully loaded.
+        this.rewardedAd.OnAdLoaded += HandleRewardedAdLoaded;
+        // Called when an ad request failed to load.
+        this.rewardedAd.OnAdFailedToLoad += HandleRewardedAdFailedToLoad;
+        // Called when an ad is shown.
+        this.rewardedAd.OnAdOpening += HandleRewardedAdOpening;
+        // Called when an ad request failed to show.
+        this.rewardedAd.OnAdFailedToShow += HandleRewardedAdFailedToShow;
+        // Called when the user should be rewarded for interacting with the ad.
+        this.rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;
+        // Called when the ad is closed.
+        this.rewardedAd.OnAdClosed += HandleRewardedAdClosed;
     }
-
 
     // Update is called once per frame
     void FixedUpdate()
@@ -121,6 +132,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(spawnwall());
             return;
         }
+
         if (ballcount <= 0 && !GameOver)
         {
             StartCoroutine(endgame());
@@ -134,6 +146,7 @@ public class GameManager : MonoBehaviour
         //     currentcooltime=0;
         // }
     }
+
     // IEnumerator spawnwall()
     // {
     // List<Vector3> spawnlist = new List<Vector3>() {pos1,pos2,pos3,pos4,pos5,pos6,pos7,pos8,pos9,pos10,pos11,pos12,pos13};
@@ -147,9 +160,10 @@ public class GameManager : MonoBehaviour
     //     }
     //     yield return null;
     // }
+
     IEnumerator spawnwall()
     {
-        int count = Random.Range(1, 4);
+        int count = UnityEngine.Random.Range(1, 4);
         for (int a = 1; a < count; a++)
         {
             StartCoroutine(spawn1());
@@ -158,15 +172,16 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
     }
+
     IEnumerator spawn()
     {
         if (stage % 2 == 0)
         {
             List<Vector3> spawnlist = new List<Vector3>() { pos6, pos7, pos8, pos9 };
-            int spawncount = Random.Range(0, spawnlist.Count);
+            int spawncount = UnityEngine.Random.Range(0, spawnlist.Count);
             for (int i = 0; i < spawncount; i++)
             {
-                int rand = Random.Range(0, spawnlist.Count);
+                int rand = UnityEngine.Random.Range(0, spawnlist.Count);
                 GameObject block = Instantiate(wall);
                 block.transform.position = spawnlist[rand];
                 spawnlist.RemoveAt(rand);
@@ -176,10 +191,10 @@ public class GameManager : MonoBehaviour
         else if (stage % 2 == 1)
         {
             List<Vector3> spawnlist = new List<Vector3>() { pos1, pos2, pos3, pos4, pos5 };
-            int spawncount = Random.Range(0, spawnlist.Count);
+            int spawncount = UnityEngine.Random.Range(0, spawnlist.Count);
             for (int i = 0; i < spawncount; i++)
             {
-                int rand = Random.Range(0, spawnlist.Count);
+                int rand = UnityEngine.Random.Range(0, spawnlist.Count);
                 GameObject block = Instantiate(wall);
                 block.transform.position = spawnlist[rand];
                 spawnlist.RemoveAt(rand);
@@ -192,13 +207,14 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(downtime);
         isMove = false;
     }
+
     IEnumerator spawn1()
     {
         List<Vector3> spawnlist = new List<Vector3>() { pos1, pos2, pos3, pos4, pos5 };
-        int spawncount = Random.Range(0, spawnlist.Count);
+        int spawncount = UnityEngine.Random.Range(0, spawnlist.Count);
         for (int i = 0; i < spawncount; i++)
         {
-            int rand = Random.Range(0, spawnlist.Count);
+            int rand = UnityEngine.Random.Range(0, spawnlist.Count);
             GameObject block = Instantiate(wall);
             block.transform.position = spawnlist[rand];
             spawnlist.RemoveAt(rand);
@@ -213,10 +229,10 @@ public class GameManager : MonoBehaviour
     IEnumerator spawn2()
     {
         List<Vector3> spawnlist = new List<Vector3>() { pos6, pos7, pos8, pos9 };
-        int spawncount = Random.Range(0, spawnlist.Count);
+        int spawncount = UnityEngine.Random.Range(0, spawnlist.Count);
         for (int i = 0; i < spawncount; i++)
         {
-            int rand = Random.Range(0, spawnlist.Count);
+            int rand = UnityEngine.Random.Range(0, spawnlist.Count);
             GameObject block = Instantiate(wall);
             block.transform.position = spawnlist[rand];
             spawnlist.RemoveAt(rand);
@@ -251,6 +267,7 @@ public class GameManager : MonoBehaviour
     //     yield return new WaitForSeconds(randomspawntime);
     //     StartCoroutine(spawnItem());
     // }
+
     IEnumerator endgame()
     {
         //PauseActive = true;
@@ -299,6 +316,7 @@ public class GameManager : MonoBehaviour
             StopCoroutine("ContinueGameTXT");
         }
     }
+
     IEnumerator ContinueGameTXT()
     {
         continueButton.gameObject.SetActive(true);
@@ -370,7 +388,20 @@ public class GameManager : MonoBehaviour
 
     public void ContinueGameButton()
     {
-        Debug.Log("렛츠고");
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            Debug.Log("ㄴㄴ인터넷");
+        }
+        else
+        {
+            rewardedAd = new RewardedAd("ca-app-pub-3940256099942544/5224354917");
+
+            // Create an empty ad request.
+            AdRequest request = new AdRequest.Builder().Build();
+            // Load the rewarded ad with the request.
+            rewardedAd.LoadAd(request);
+            rewardedAd.Show();
+        }
         // ad.LoadRewardAd();
         // ad.rewardAd.OnUserEarnedReward += (sender, e) =>
         // {
@@ -379,13 +410,7 @@ public class GameManager : MonoBehaviour
         // this.rewardedAd = new RewardedAd("ca-app-pub-3940256099942544/5224354917");
         // AdRequest request = new AdRequest.Builder().Build();
         // this.rewardedAd.LoadAd(request);
-        rewardedAd = new RewardedAd("ca-app-pub-3940256099942544/5224354917");
 
-        // Create an empty ad request.
-        AdRequest request = new AdRequest.Builder().Build();
-        // Load the rewarded ad with the request.
-        rewardedAd.LoadAd(request);
-        rewardedAd.Show();
         //Time.timeScale = 0;
     }
 
@@ -402,4 +427,74 @@ public class GameManager : MonoBehaviour
         GameCount();
     }
 
+    public void HandleRewardedAdLoaded(object sender, EventArgs args)
+    {
+        MonoBehaviour.print("HandleRewardedAdLoaded event received");
+    }
+
+    // public void HandleRewardedAdFailedToLoad(object sender, AdErrorEventArgs args)
+    // {
+    //     MonoBehaviour.print(
+    //         "HandleRewardedAdFailedToLoad event received with message: "
+    //                          + args.Message);
+    // }
+
+    public void HandleRewardedAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    {
+        LoadAdError loadAdError = args.LoadAdError;
+
+        string domain = loadAdError.GetDomain();
+
+        int code = loadAdError.GetCode();
+
+        string message = loadAdError.GetMessage();
+
+        AdError underlyingError = loadAdError.GetCause();
+
+        Debug.Log("Load error string: " + loadAdError.ToString());
+
+        ResponseInfo responseInfo = loadAdError.GetResponseInfo();
+        Debug.Log("Response info: " + responseInfo.ToString());
+    }
+
+    public void HandleRewardedAdOpening(object sender, EventArgs args)
+    {
+        MonoBehaviour.print("HandleRewardedAdOpening event received");
+        PlayerPrefs.SetInt("ReSocre", score);
+        PlayerPrefs.SetInt("ReStage", stage);
+
+        StartCoroutine(LoadRoutine());
+    }
+
+    public void HandleRewardedAdFailedToShow(object sender, AdErrorEventArgs args)
+    {
+        MonoBehaviour.print(
+            "HandleRewardedAdFailedToShow event received with message: "
+                             + args.Message);
+    }
+
+    public void HandleRewardedAdClosed(object sender, EventArgs args)
+    {
+        MonoBehaviour.print("HandleRewardedAdClosed event received");
+    }
+
+    public void HandleUserEarnedReward(object sender, Reward args)
+    {
+        string type = args.Type;
+        double amount = args.Amount;
+        MonoBehaviour.print(
+            "HandleRewardedAdRewarded event received for "
+                        + amount.ToString() + " " + type);
+    }
+
+    private IEnumerator LoadRoutine()
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+
+        while (!operation.isDone)
+            yield return null;
+
+        score = PlayerPrefs.GetInt("ReSocre");
+        stage = PlayerPrefs.GetInt("ReStage");
+    }
 }
