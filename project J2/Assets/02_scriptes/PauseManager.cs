@@ -15,11 +15,13 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private Button PauseButton;
 
     private GameManager GM;
+    private JSON json;
     test BallOBj;
     public float moveSpeed;
     void Start()
     {
         //GM.GameOver = false;
+        json = FindObjectOfType<JSON>();
     }
 
     // Update is called once per frame
@@ -42,16 +44,20 @@ public class PauseManager : MonoBehaviour
 
     public void GamePuase()
     {
+        if (!GM.GameOver)
+        {
+            PausScoreTXT.text = "SCORE : " + GM.score.ToString();
+
+            GM.PauseActive = true;
+            blakcfade.gameObject.SetActive(true);
+            pauspanel.SetActive(true);
+            Time.timeScale = 0;
+        }
         //if (GM.GameOver == false)
         //{
         // if (GM.PauseActive == false)
         // {
-        PausScoreTXT.text = "SCORE : " + GM.score.ToString();
 
-        GM.PauseActive = true;
-        blakcfade.gameObject.SetActive(true);
-        pauspanel.SetActive(true);
-        Time.timeScale = 0;
         // }
         // else
         // {
@@ -82,5 +88,19 @@ public class PauseManager : MonoBehaviour
     {
         QuitPause();
         SceneManager.LoadScene("home");
+    }
+
+    public void vibrationCheck()
+    {
+        json.LoadPlayerDataToJson();
+        if (!json.playerData.vibration)
+        {
+            json.playerData.vibration = true;
+        }
+        else
+        {
+            json.playerData.vibration = false;
+        }
+        json.SavePlayerDataToJson();
     }
 }

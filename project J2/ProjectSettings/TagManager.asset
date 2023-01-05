@@ -9,6 +9,7 @@ TagManager:
   - wall
   - item
   - destroyobject
+  - bullet
   layers:
   - Default
   - TransparentFX

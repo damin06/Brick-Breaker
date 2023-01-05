@@ -52,6 +52,7 @@ public class blcok : MonoBehaviour
         if (gameManager.isMove)
         {
             transform.position += Vector3.down * speed * Time.deltaTime;
+            //transform.position = Vector3.Lerp(transform.position, Vector3.down, Time.deltaTime * speed);
         }
         if (blockHP == 1)
         {
@@ -112,10 +113,11 @@ public class blcok : MonoBehaviour
             }
             blockHPTXT.text = blockHP.ToString();
         }
-        // if(other.gameObject.CompareTag("wall"))
-        // {
-        //     gameManager.blockcount--;
-        //     Destroy(other.gameObject);
-        // }
+
+        if (other.gameObject.CompareTag("bullet"))
+        {
+            blockHP--;
+            Destroy(other.gameObject);
+        }
     }
 }

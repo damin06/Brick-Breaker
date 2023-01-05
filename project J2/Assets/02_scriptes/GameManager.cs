@@ -47,7 +47,8 @@ public class GameManager : MonoBehaviour
     private PauseManager pauseManager;
     private AdMobManager ad;
     private block_move bl;
-    private RewardedAd rewardedAd;
+    private RewardedInterstitialAd rewardedInterstitialAd;
+    private string adID = "ca-app-pub-3940256099942544/5224354917";
 
     // [SerializeField] private GameObject item1;
     // [SerializeField] private GameObject item2;
@@ -67,14 +68,17 @@ public class GameManager : MonoBehaviour
     public float time;
     public int stage = 0;
     private float currentcooltime;
+    private int countSpawnBl;
+    private float transformYPOS;
     [SerializeField] private float cooltime = 10;
 
     [SerializeField] private float downtime = 0.24f;
     public int blockcount = 0;
     private float voluemSetting;
     test Test;
-
-
+    [Space]
+    public List<GameObject> blockobjList1 = new List<GameObject>();
+    public List<GameObject> blockobjList2 = new List<GameObject>();
     private void Awake()
     {
         jSON.LoadPlayerDataToJson();
@@ -96,31 +100,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        var requestConfiguration = new RequestConfiguration
-        .Builder()
-        .SetTestDeviceIds(new List<string>() { "1DF7B7CC05014E8" }) // test Device ID
-        .build();
-        MobileAds.SetRequestConfiguration(requestConfiguration);
-
-        rewardedAd = new RewardedAd("ca-app-pub-3940256099942544/5224354917");
-
-        // Create an empty ad request.
-        AdRequest request = new AdRequest.Builder().Build();
-        // Load the rewarded ad with the request.
-        rewardedAd.LoadAd(request);
-
-        // Called when an ad request has successfully loaded.
-        this.rewardedAd.OnAdLoaded += HandleRewardedAdLoaded;
-        // Called when an ad request failed to load.
-        this.rewardedAd.OnAdFailedToLoad += HandleRewardedAdFailedToLoad;
-        // Called when an ad is shown.
-        this.rewardedAd.OnAdOpening += HandleRewardedAdOpening;
-        // Called when an ad request failed to show.
-        this.rewardedAd.OnAdFailedToShow += HandleRewardedAdFailedToShow;
-        // Called when the user should be rewarded for interacting with the ad.
-        this.rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;
-        // Called when the ad is closed.
-        this.rewardedAd.OnAdClosed += HandleRewardedAdClosed;
+        MobileAds.Initialize(initStatus => { });
     }
 
     // Update is called once per frame
@@ -135,7 +115,7 @@ public class GameManager : MonoBehaviour
 
         if (ballcount <= 0 && !GameOver)
         {
-            StartCoroutine(endgame());
+            StartCoroutine("endgame");
             return;
         }
 
@@ -163,67 +143,77 @@ public class GameManager : MonoBehaviour
 
     IEnumerator spawnwall()
     {
-        int count = UnityEngine.Random.Range(1, 4);
-        for (int a = 1; a < count; a++)
+        countSpawnBl = UnityEngine.Random.Range(1, 4);
+        for (int a = 1; a < countSpawnBl; a++)
         {
             StartCoroutine(spawn1());
+            transformYPOS += 0.6f;
             yield return new WaitForSeconds(1);
             StartCoroutine(spawn2());
+            transformYPOS += 0.6f;
             yield return new WaitForSeconds(1);
         }
+        transformYPOS = -0.9f;
     }
 
-    IEnumerator spawn()
-    {
-        if (stage % 2 == 0)
-        {
-            List<Vector3> spawnlist = new List<Vector3>() { pos6, pos7, pos8, pos9 };
-            int spawncount = UnityEngine.Random.Range(0, spawnlist.Count);
-            for (int i = 0; i < spawncount; i++)
-            {
-                int rand = UnityEngine.Random.Range(0, spawnlist.Count);
-                GameObject block = Instantiate(wall);
-                block.transform.position = spawnlist[rand];
-                spawnlist.RemoveAt(rand);
-                blockcount++;
-            }
-        }
-        else if (stage % 2 == 1)
-        {
-            List<Vector3> spawnlist = new List<Vector3>() { pos1, pos2, pos3, pos4, pos5 };
-            int spawncount = UnityEngine.Random.Range(0, spawnlist.Count);
-            for (int i = 0; i < spawncount; i++)
-            {
-                int rand = UnityEngine.Random.Range(0, spawnlist.Count);
-                GameObject block = Instantiate(wall);
-                block.transform.position = spawnlist[rand];
-                spawnlist.RemoveAt(rand);
-                blockcount++;
-            }
-        }
-        yield return new WaitForSeconds(0.1f);
-        stage++;
-        isMove = true;
-        yield return new WaitForSeconds(downtime);
-        isMove = false;
-    }
+    // IEnumerator spawn()
+    // {
+    //     if (stage % 2 == 0)
+    //     {
+    //         List<Vector3> spawnlist = new List<Vector3>() { pos6, pos7, pos8, pos9 };
+    //         int spawncount = UnityEngine.Random.Range(0, spawnlist.Count);
+    //         for (int i = 0; i < spawncount; i++)
+    //         {
+    //             int rand = UnityEngine.Random.Range(0, spawnlist.Count);
+    //             GameObject block = Instantiate(wall);
+    //             block.transform.position = spawnlist[rand];
+    //             spawnlist.RemoveAt(rand);
+    //             blockcount++;
+    //         }
+    //     }
+    //     else if (stage % 2 == 1)
+    //     {
+    //         List<Vector3> spawnlist = new List<Vector3>() { pos1, pos2, pos3, pos4, pos5 };
+    //         int spawncount = UnityEngine.Random.Range(0, spawnlist.Count);
+    //         for (int i = 0; i < spawncount; i++)
+    //         {
+    //             int rand = UnityEngine.Random.Range(0, spawnlist.Count);
+    //             GameObject block = Instantiate(wall);
+    //             block.transform.position = spawnlist[rand];
+    //             spawnlist.RemoveAt(rand);
+    //             blockcount++;
+    //         }
+    //     }
+    //     yield return new WaitForSeconds(0.1f);
+    //     stage++;
+    //     isMove = true;
+    //     yield return new WaitForSeconds(downtime);
+    //     isMove = false;
+    // }
 
     IEnumerator spawn1()
     {
         List<Vector3> spawnlist = new List<Vector3>() { pos1, pos2, pos3, pos4, pos5 };
         int spawncount = UnityEngine.Random.Range(0, spawnlist.Count);
+
         for (int i = 0; i < spawncount; i++)
         {
             int rand = UnityEngine.Random.Range(0, spawnlist.Count);
             GameObject block = Instantiate(wall);
             block.transform.position = spawnlist[rand];
             spawnlist.RemoveAt(rand);
+            blockobjList1.Add(block);
             blockcount++;
         }
         stage++;
+        // foreach (GameObject mvblock in blockobjList1)
+        // {
+        //     mvblock.transform.DOMoveY(transformYPOS, 0.23f);
+        // }
         isMove = true;
         yield return new WaitForSeconds(downtime);
         isMove = false;
+        yield return null;
     }
 
     IEnumerator spawn2()
@@ -236,12 +226,19 @@ public class GameManager : MonoBehaviour
             GameObject block = Instantiate(wall);
             block.transform.position = spawnlist[rand];
             spawnlist.RemoveAt(rand);
+            blockobjList2.Add(block);
             blockcount++;
         }
         stage++;
+        // foreach (GameObject mvblock in blockobjList2)
+        // {
+        //     mvblock.transform.DOMoveY(transformYPOS, 0.23f);
+
+        // }
         isMove = true;
         yield return new WaitForSeconds(downtime);
         isMove = false;
+        yield return null;
     }
 
     // IEnumerator spawnItem()
@@ -270,10 +267,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator endgame()
     {
-        //PauseActive = true;
         pauseManager.QuitPause();
         //PauseActive = false;
-        Handheld.Vibrate();
         GameOver = true;
 
         //blakcfade.gameObject.SetActive(false);
@@ -282,12 +277,18 @@ public class GameManager : MonoBehaviour
         //backgorund.transform.DOMove(new Vector3(430, 240, 0), 2);
         backgroundRext.DOAnchorPosY(0, 2);
         yield return new WaitForSeconds(0.5f);
+        Data PlayerData = jSON.playerData;
+        if (PlayerData.vibration)
+        {
+            Handheld.Vibrate();
+        }
+        bestscore = PlayerData.bestscore;
         if (score > bestscore)
         {
             bestscore = score;
             //PlayerPrefs.SetInt("bestscore", bestscore);
 
-            Data PlayerData = jSON.playerData;
+
             PlayerData.bestscore = bestscore;
 
             bestsocteTXT.DOFade(1, 2);
@@ -298,12 +299,6 @@ public class GameManager : MonoBehaviour
         scoreTXT.DOFade(1, 2);
         gameoverTXT.DOFade(1, 2);
 
-        isRe();
-        //quitbutton.gameObject.SetActive(true);
-    }
-
-    private void isRe()
-    {
         if (!isReStarted)
         {
             StartCoroutine("ContinueGameTXT");
@@ -317,27 +312,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     IEnumerator ContinueGameTXT()
     {
-        continueButton.gameObject.SetActive(true);
-        continueTXT.DOFade(1, 2);
-        continueCountTXT.DOFade(1, 2);
-        yield return new WaitForSeconds(2.2f);
-        continueCountTXT.text = "2";
-        yield return new WaitForSeconds(1);
-        continueCountTXT.text = "1";
-        yield return new WaitForSeconds(1);
+        if (GameOver)
+        {
+            continueButton.gameObject.SetActive(true);
+            continueTXT.DOFade(1, 2);
+            continueCountTXT.DOFade(1, 2);
+            yield return new WaitForSeconds(2.2f);
+            continueCountTXT.text = "2";
+            yield return new WaitForSeconds(1);
+            continueCountTXT.text = "1";
+            yield return new WaitForSeconds(1);
 
-        // int a = 5;
-        // for (int i = a; i <= 0; i--)
-        // {
-        //     continueCountTXT.text = i.ToString();
-        //     yield return new WaitForSeconds(1);
-        // }
+            // int a = 5;
+            // for (int i = a; i <= 0; i--)
+            // {
+            //     continueCountTXT.text = i.ToString();
+            //     yield return new WaitForSeconds(1);
+            // }
 
-        //yield return new WaitForSeconds(a);
-        continueButton.gameObject.SetActive(false);
-        restartButton.gameObject.SetActive(true);
+            //yield return new WaitForSeconds(a);
+            continueButton.gameObject.SetActive(false);
+            restartButton.gameObject.SetActive(true);
+        }
         StopCoroutine("ContinueGameTXT");
     }
 
@@ -394,107 +393,81 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            rewardedAd = new RewardedAd("ca-app-pub-3940256099942544/5224354917");
-
-            // Create an empty ad request.
-            AdRequest request = new AdRequest.Builder().Build();
-            // Load the rewarded ad with the request.
-            rewardedAd.LoadAd(request);
-            rewardedAd.Show();
+            ShowAd();
         }
-        // ad.LoadRewardAd();
-        // ad.rewardAd.OnUserEarnedReward += (sender, e) =>
-        // {
-        //     StartCoroutine("ContinueGame");
-        // };
-        // this.rewardedAd = new RewardedAd("ca-app-pub-3940256099942544/5224354917");
-        // AdRequest request = new AdRequest.Builder().Build();
-        // this.rewardedAd.LoadAd(request);
-
-        //Time.timeScale = 0;
     }
 
     IEnumerator ContinueGame()
     {
         GameOver = false;
-        isReStarted = true;
-        backgroundRext.DOAnchorPosY(946, 1);
-        bestsocteTXT.DOFade(0, 1.5f);
-        scoreTXT.DOFade(0, 1.5f);
-        gameoverTXT.DOFade(0, 1.5f);
-        yield return new WaitForSeconds(1.7f);
         bl.SpawnBall();
-        GameCount();
+        StartCoroutine(GameCount());
+        StopCoroutine("ContinueGameTXT");
+        StopCoroutine("endgame");
+        GameOver = false;
+        isReStarted = true;
+        Debug.Log("ㄴㅇㅅ광고ㄳ");
+        backgroundRext.DOAnchorPosY(945, 1);
+        bestsocteTXT.DOFade(0, 1f);
+        scoreTXT.DOFade(0, 1f);
+        gameoverTXT.DOFade(0, 1f);
+        continueButton.gameObject.SetActive(false);
+        restartButton.gameObject.SetActive(false);
+        yield return null;
     }
 
-    public void HandleRewardedAdLoaded(object sender, EventArgs args)
+
+    public void LoadAd()
     {
-        MonoBehaviour.print("HandleRewardedAdLoaded event received");
+        AdRequest request = new AdRequest.Builder().Build();
+        RewardedInterstitialAd.LoadAd(adID, request, adLoadCallback);
     }
 
-    // public void HandleRewardedAdFailedToLoad(object sender, AdErrorEventArgs args)
-    // {
-    //     MonoBehaviour.print(
-    //         "HandleRewardedAdFailedToLoad event received with message: "
-    //                          + args.Message);
-    // }
 
-    public void HandleRewardedAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    private void adLoadCallback(RewardedInterstitialAd ad, AdFailedToLoadEventArgs error)
     {
-        LoadAdError loadAdError = args.LoadAdError;
+        if (error == null)
+        {
+            rewardedInterstitialAd = ad;
 
-        string domain = loadAdError.GetDomain();
-
-        int code = loadAdError.GetCode();
-
-        string message = loadAdError.GetMessage();
-
-        AdError underlyingError = loadAdError.GetCause();
-
-        Debug.Log("Load error string: " + loadAdError.ToString());
-
-        ResponseInfo responseInfo = loadAdError.GetResponseInfo();
-        Debug.Log("Response info: " + responseInfo.ToString());
+            rewardedInterstitialAd.OnAdFailedToPresentFullScreenContent += HandleAdFailedToPresent;
+            rewardedInterstitialAd.OnAdDidPresentFullScreenContent += HandleAdDidPresent;
+            rewardedInterstitialAd.OnAdDidDismissFullScreenContent += HandleAdDidDismiss;
+            rewardedInterstitialAd.OnPaidEvent += HandlePaidEvent;
+        }
     }
 
-    public void HandleRewardedAdOpening(object sender, EventArgs args)
+    public void ShowAd()
     {
-        MonoBehaviour.print("HandleRewardedAdOpening event received");
-        PlayerPrefs.SetInt("ReSocre", score);
-        PlayerPrefs.SetInt("ReStage", stage);
-
-        StartCoroutine(LoadRoutine());
+        LoadAd();
+        if (rewardedInterstitialAd != null)
+        {
+            rewardedInterstitialAd.Show(userEarnedRewardCallback);
+        }
     }
 
-    public void HandleRewardedAdFailedToShow(object sender, AdErrorEventArgs args)
+    private void userEarnedRewardCallback(Reward reward)
     {
-        MonoBehaviour.print(
-            "HandleRewardedAdFailedToShow event received with message: "
-                             + args.Message);
+        StartCoroutine("ContinueGame");
     }
 
-    public void HandleRewardedAdClosed(object sender, EventArgs args)
+    private void HandleAdFailedToPresent(object sender, AdErrorEventArgs args)
     {
-        MonoBehaviour.print("HandleRewardedAdClosed event received");
+        LoadAd();
     }
 
-    public void HandleUserEarnedReward(object sender, Reward args)
+    private void HandleAdDidPresent(object sender, EventArgs args)
     {
-        string type = args.Type;
-        double amount = args.Amount;
-        MonoBehaviour.print(
-            "HandleRewardedAdRewarded event received for "
-                        + amount.ToString() + " " + type);
+        LoadAd();
     }
 
-    private IEnumerator LoadRoutine()
+    private void HandleAdDidDismiss(object sender, EventArgs args)
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        LoadAd();
+    }
 
-        while (!operation.isDone)
-            yield return null;
-
-        score = PlayerPrefs.GetInt("ReSocre");
-        stage = PlayerPrefs.GetInt("ReStage");
+    private void HandlePaidEvent(object sender, AdValueEventArgs args)
+    {
+        LoadAd();
     }
 }

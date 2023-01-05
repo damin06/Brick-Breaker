@@ -32,8 +32,9 @@ public class JSON : MonoBehaviour
     }
 }
 
-//[System.Serializable]
+[System.Serializable]
 public class Data
 {
     public int bestscore;
+    public bool vibration;
 }
