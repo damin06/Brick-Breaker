@@ -6,12 +6,38 @@ using UnityEngine;
 public class JSON : MonoBehaviour
 {
     public Data playerData;
+    private bool Ismobile;
+    private void Start()
+    {
+#if UNITY_ANDROID
+        {
+            Ismobile = true;
+        }
+#endif
+
+#if UNITY_EDITOR
+        {
+            Ismobile = false;
+        }
+#endif
+
+    }
 
     [ContextMenu("To Json Data")]
     public void SavePlayerDataToJson()
     {
         string JsonData = JsonUtility.ToJson(playerData, true);
-        string path = Path.Combine(Application.dataPath, "PlayerData.json");
+
+        string path;
+        if (!Ismobile)
+        {
+            path = Path.Combine(Application.dataPath, "PlayerData.json");
+        }
+        else
+        {
+            path = Path.Combine(Application.persistentDataPath, "PlayerData.json");
+        }
+
 
         byte[] bytes = System.Text.Encoding.UTF8.GetBytes(JsonData);
         string code = System.Convert.ToBase64String(bytes);
@@ -23,7 +49,17 @@ public class JSON : MonoBehaviour
     [ContextMenu("Load Json Data")]
     public void LoadPlayerDataToJson()
     {
-        string path = Path.Combine(Application.dataPath, "PlayerData.json");
+        string path;
+
+        if (!Ismobile)
+        {
+            path = Path.Combine(Application.dataPath, "PlayerData.json");
+        }
+        else
+        {
+            path = Path.Combine(Application.persistentDataPath, "PlayerData.json");
+        }
+
         string jsonData = File.ReadAllText(path);
 
         byte[] bytes = System.Convert.FromBase64String(jsonData);

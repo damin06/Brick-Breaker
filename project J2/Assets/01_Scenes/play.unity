@@ -945,6 +945,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f6c03cdc3af2794d964cf7c6b2730e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData:
+    bestscore: 0
+    vibration: 0
 --- !u!114 &707886106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2239,7 +2242,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1111156055}
   - component: {fileID: 1111156054}
-  - component: {fileID: 1111156056}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2259,7 +2261,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 519ab3c104c36bd4caf768bb48c20f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jSON: {fileID: 1111156056}
   quitbutton: {fileID: 1995526583}
   backgorund: {fileID: 743273238}
   scoreTXT: {fileID: 1904886939}
@@ -2282,6 +2283,8 @@ MonoBehaviour:
   cooltime: 5
   downtime: 0.23
   blockcount: 0
+  blockobjList1: []
+  blockobjList2: []
 --- !u!4 &1111156055
 Transform:
   m_ObjectHideFlags: 0
@@ -2297,18 +2300,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1111156056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1111156053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f6c03cdc3af2794d964cf7c6b2730e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1232954227
 GameObject:
   m_ObjectHideFlags: 0

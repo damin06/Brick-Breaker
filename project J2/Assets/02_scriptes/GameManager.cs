@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     Vector3 pos9 = new Vector3(5.25f, 5.5f, 0);
 
 
-    [SerializeField] private JSON jSON;
+    private JSON jSON;
 
     [Header("UI")]
     [SerializeField] Button quitbutton;
@@ -81,8 +81,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> blockobjList2 = new List<GameObject>();
     private void Awake()
     {
-        jSON.LoadPlayerDataToJson();
-        Data PlayerData = jSON.playerData;
+
         Test = GameObject.FindObjectOfType<test>().GetComponent<test>();
         StartCoroutine(spawnwall());
         StartCoroutine(GameCount());
@@ -100,6 +99,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        jSON = FindObjectOfType<JSON>();
+
+        jSON.LoadPlayerDataToJson();
+
+        Data PlayerData = jSON.playerData;
+
         MobileAds.Initialize(initStatus => { });
     }
 
