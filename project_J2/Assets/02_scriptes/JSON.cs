@@ -9,17 +9,19 @@ public class JSON : MonoBehaviour
     private bool Ismobile;
     private void Start()
     {
-#if UNITY_ANDROID
-        {
-            Ismobile = true;
-        }
-#endif
+        // #if UNITY_ANDROID
+        //         {
+        //             Ismobile = true;
+        //         }
+        // #endif
 
-#if UNITY_EDITOR
-        {
-            Ismobile = false;
-        }
-#endif
+        // #if UNITY_EDITOR
+        //         {
+        //             Ismobile = false;
+        //         }
+        //#endif
+
+        Ismobile = true;
 
     }
 

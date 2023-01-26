@@ -392,14 +392,14 @@ public class GameManager : MonoBehaviour
 
     public void ContinueGameButton()
     {
-        if (Application.internetReachability == NetworkReachability.NotReachable)
-        {
-            Debug.Log("ㄴㄴ인터넷");
-        }
-        else
-        {
-            ShowAd();
-        }
+        // if (Application.internetReachability == NetworkReachability.NotReachable)
+        // {
+        //     Debug.Log("ㄴㄴ인터넷");
+        // }
+        // else
+        // {
+        ShowAd();
+        //}
     }
 
     IEnumerator ContinueGame()
