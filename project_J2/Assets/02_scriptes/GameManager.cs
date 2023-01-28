@@ -1,8 +1,8 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -280,7 +280,7 @@ public class GameManager : MonoBehaviour
         //pauspanel.SetActive(false);
         //Time.timeScale = 1;
         //backgorund.transform.DOMove(new Vector3(430, 240, 0), 2);
-        backgroundRext.DOAnchorPosY(0, 2);
+        backgroundRext.gameObject.DOAnchorPosY(0, 2);
         yield return new WaitForSeconds(0.5f);
         Data PlayerData = jSON.playerData;
         if (PlayerData.vibration)
