@@ -8,7 +8,7 @@ public class block_move : MonoBehaviour
     [SerializeField] stageData stageData;
     [SerializeField] private AudioClip itemAudio;
     private float moveSpeed;
-    private Quaternion basePosition = new(0, 0, 0, 0);
+    private Quaternion basePosition = new Quaternion(0, 0, 0, 0);
     public float maxBounceAngle = 75f;
     GameManager gameManager;
     PauseManager pauseManager;
