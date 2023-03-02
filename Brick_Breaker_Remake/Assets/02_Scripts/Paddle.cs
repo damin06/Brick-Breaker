@@ -13,12 +13,12 @@ public class Paddle : MonoBehaviour
 
     void Update()
     {
-
+        Move();
     }
 
     private void FixedUpdate()
     {
-        Move();
+
     }
 
     private void Move()
@@ -26,7 +26,7 @@ public class Paddle : MonoBehaviour
         Vector3 vec = Vector3.zero;
         if (Application.platform == RuntimePlatform.Android)
         {
-            vec.x = Input.acceleration.x;
+            vec.x = Input.acceleration.x * speed;
             if (vec.sqrMagnitude > 1)
                 vec.Normalize();
         }
@@ -35,7 +35,8 @@ public class Paddle : MonoBehaviour
             vec.x = Input.GetAxisRaw("Horizontal");
         }
 
-
-        rb.AddForce(vec * speed);
+        //transform.Translate(vec * speed);
+        rb.velocity = vec * speed;
+        //rb.AddForce(vec * speed);
     }
 }
